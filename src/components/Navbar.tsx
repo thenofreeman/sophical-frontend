@@ -9,7 +9,7 @@ export default function Navbar({ style = 'normal' }) {
 
   // Navigation links data
   const navLinks = [
-    { name: 'Home', href: '#' },
+    { name: 'Discover', href: '#' },
     { name: 'Learn', href: '#' },
     { name: 'Develop', href: '#' },
     { name: 'Research', href: '#' }
