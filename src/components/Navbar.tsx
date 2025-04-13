@@ -25,7 +25,7 @@ export default function Navbar({ style = 'normal' }) {
   // Logo opacity for minimal mode
   const getLogoOpacity = () => {
     if (style === 'minimal' && !leftHovered) {
-      return 'opacity-40';
+      return 'opacity-20';
     }
     return 'opacity-100';
   };
@@ -92,7 +92,7 @@ export default function Navbar({ style = 'normal' }) {
           </button>
         </div>
         <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300 ml-2`}>
-          <User size={20} className="text-gray-700" />
+          <User size={20} className="text-gray-500" />
         </button>
       </div>
     </nav>

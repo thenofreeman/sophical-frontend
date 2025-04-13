@@ -147,7 +147,7 @@ const CVSection: React.FC<CVSectionProps> = ({ title, items }) => {
             {item.tags && (
               <div className="flex flex-wrap gap-2 mt-3">
                 {item.tags.map((tag, i) => (
-                  <span key={i} className="bg-gray-100 px-2 py-1 text-sm">{tag}</span>
+                  <span key={i} className="bg-gray-100 px-2 py-1 text-sm rounded-md">{tag}</span>
                 ))}
               </div>
             )}
