@@ -128,7 +128,7 @@ interface CVSectionProps {
 const CVSection: React.FC<CVSectionProps> = ({ title, items }) => {
   return (
     <section className="mb-12">
-      <h2 className="text-xl font-semibold mb-6 text-right border-b border-gray-200 pb-1">{title}</h2>
+      <h2 className="text-xl font-semibold mb-6 text-left border-b border-gray-200 pb-1">{title}</h2>
 
       {items.map((item, index) => (
         <div className="mb-8 flex" key={index}>

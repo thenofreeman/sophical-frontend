@@ -1,11 +1,12 @@
 import './App.css'
 import Navbar from './components/Navbar'
+import CV from './layouts/CV';
 
 function App() {
   return (
     <>
-      <Navbar style='normal' />
       <Navbar style='minimal' />
+      <CV />
     </>
   );
 }
