@@ -39,8 +39,7 @@ const mockSchedules: Schedule[] = [
   { id: '2', name: 'Schedule Option 2', courses: initialCourses.slice(0, 1) },
 ];
 
-// Main component
-export default function CourseScheduleBuilder() {
+export default function ScheduleBuilder() {
   const [selectedTerm, setSelectedTerm] = useState<string>(terms[0].id);
   const [courses, setCourses] = useState<Course[]>(initialCourses);
   const [schedules, setSchedules] = useState<Schedule[]>(mockSchedules);
@@ -78,10 +77,11 @@ export default function CourseScheduleBuilder() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-white text-black min-h-screen">
+  <div className="min-h-screen bg-white text-black flex justify-center py-16 px-4">
+    <div className="flex flex-col min-h-screen">
       {/* Header - Term Selection */}
       <div className="w-full p-6 border-b border-gray-200">
-        <h1 className="text-2xl font-bold mb-4">Course Schedule Builder</h1>
+        <h1 className="text-2xl font-bold mb-4">Schedule Builder</h1>
         <div className="flex items-center">
           <label className="mr-4 font-medium">Term:</label>
           <select
@@ -101,13 +101,12 @@ export default function CourseScheduleBuilder() {
         {/* Left column - Course List */}
         <div className="w-full md:w-1/2 p-6 border-r border-gray-200">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Course Selection</h2>
+            <h2 className="text-xl font-semibold">Planned Courses</h2>
             <button
               onClick={addCourse}
               className="flex items-center px-3 py-2 bg-black text-white rounded hover:bg-gray-800"
             >
-              <Plus size={16} className="mr-1" />
-              Add Course
+              <Plus size={16} />
             </button>
           </div>
 
@@ -155,7 +154,7 @@ export default function CourseScheduleBuilder() {
 
             {courses.length === 0 && (
               <div className="p-4 text-center text-gray-500 border border-dashed border-gray-300 rounded">
-                No courses selected. Click "Add Course" to get started.
+                No courses selected. Click "+" to get started.
               </div>
             )}
           </div>
@@ -171,9 +170,9 @@ export default function CourseScheduleBuilder() {
         </div>
       </div>
 
-      {/* Bottom section - Generated Schedules */}
+      {/* Bottom section - Possible Schedules */}
       <div className="w-full p-6 bg-white border-t border-gray-200">
-        <h2 className="text-xl font-semibold mb-4">Generated Schedules</h2>
+        <h2 className="text-xl font-semibold mb-4">Possible Schedules</h2>
 
         {selectedSchedule ? (
           <div className="border border-gray-200 rounded p-4">
@@ -227,5 +226,6 @@ export default function CourseScheduleBuilder() {
         )}
       </div>
     </div>
+  </div>
   );
 }
