@@ -132,10 +132,10 @@ const CVSection: React.FC<CVSectionProps> = ({ title, items }) => {
 
       {items.map((item, index) => (
         <div className="mb-8 flex" key={index}>
-          <div className="w-1/4 pr-6 text-right text-gray-500 pt-1">
+          <div className="w-1/5 pr-6 text-left text-gray-500 pt-1">
             {item.period || item.category}
           </div>
-          <div className="w-3/4">
+          <div className="w-4/5">
             {item.title && <h3 className="font-medium text-lg">{item.title}</h3>}
             {item.description && <p className="text-gray-700 my-2">{item.description}</p>}
             {item.link && (
@@ -187,7 +187,7 @@ export default function CV({ data = cvData }: CVProps): React.ReactElement {
 
         {/* Overview Section */}
         <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4 text-right border-b border-gray-200 pb-1">Overview</h2>
+          <h2 className="text-xl font-semibold mb-4 text-left border-b border-gray-200 pb-1">Overview</h2>
           <p className="text-gray-800">{data.overview}</p>
         </section>
 
