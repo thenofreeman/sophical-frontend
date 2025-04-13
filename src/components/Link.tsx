@@ -11,7 +11,7 @@ export default function Link({ children, href }: LinkProps ) {
   return (
     <a
       href={href}
-      className="relative text-gray-700 hover:text-black no-underline transition-colors"
+      className="relative text-gray-700 hover:text-black no-underline transition-colors hover:cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
