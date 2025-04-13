@@ -1,13 +1,12 @@
 import './App.css'
-import Navbar from './components/Navbar'
-import CV from './layouts/CV';
+import MainLayout from './layouts/MainLayout';
+import CV from './templates/CV';
 
 function App() {
   return (
-    <>
-      <Navbar style='minimal' />
+    <MainLayout style='minimal'>
       <CV />
-    </>
+    </MainLayout>
   );
 }
 

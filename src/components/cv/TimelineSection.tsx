@@ -1,5 +1,5 @@
 import { ExternalLink } from 'lucide-react';
-import { ItemWithTags } from '../../types/cv'
+import { ItemWithTags } from '../../types/CV'
 
 interface TimelineSectionProps {
   title: string;

@@ -2,7 +2,7 @@ import React from 'react';
 import TextSection from '../components/cv/TextSection';
 import HeaderSection from '../components/cv/CVHeader';
 import TimelineSection from '../components/cv/TimelineSection';
-import { CVData } from '../types/cv';
+import { CVData } from '../types/CV';
 
 const cvData: CVData = {
   header: {
@@ -72,15 +72,17 @@ interface CVProps {
 
 export default function CV({ data = cvData }: CVProps): React.ReactElement {
   return (
-    <div className="min-h-screen bg-white text-black flex justify-center py-16 px-4">
-      <div className="w-full max-w-3xl">
-        <HeaderSection name={data.header.name} bio={data.header.bio} socialLinks={data.header.socialLinks} />
-        <TextSection content={data.overview} />
-        <TimelineSection title={"Experience"} items={data.experience} />
-        <TimelineSection title={"Education"} items={data.education} />
-        <TimelineSection title={"Projects"} items={data.projects} />
-        {/* <CVSection title="Skills" items={data.skills} /> */}
+    <>
+      <div className="min-h-screen bg-white text-black flex justify-center py-16 px-4">
+        <div className="w-full max-w-3xl">
+          <HeaderSection name={data.header.name} bio={data.header.bio} socialLinks={data.header.socialLinks} />
+          <TextSection content={data.overview} />
+          <TimelineSection title={"Experience"} items={data.experience} />
+          <TimelineSection title={"Education"} items={data.education} />
+          <TimelineSection title={"Projects"} items={data.projects} />
+          {/* <CVSection title="Skills" items={data.skills} /> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

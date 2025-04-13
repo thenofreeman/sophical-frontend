@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { User, ChevronDown } from 'lucide-react';
 import Link from './Link';
+import { UIStyle } from '../types/UI';
 
-// Main Navbar component
-export default function Navbar({ style = 'normal' }) {
+interface Navbar {
+  style?: UIStyle,
+}
+
+export default function Navbar({ style = 'normal' }: Navbar) {
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
 
-  // Navigation links data
   const navLinks = [
     { name: 'Discover', href: '#' },
     { name: 'Learn', href: '#' },
@@ -15,14 +18,12 @@ export default function Navbar({ style = 'normal' }) {
     { name: 'Research', href: '#' }
   ];
 
-  // User menu items
   const userMenuItems = [
     { name: 'Profile', href: '#' },
     { name: 'Settings', href: '#' },
     { name: 'Logout', href: '#' }
   ];
 
-  // Logo opacity for minimal mode
   const getLogoOpacity = () => {
     if (style === 'minimal' && !leftHovered) {
       return 'opacity-20';
@@ -30,7 +31,6 @@ export default function Navbar({ style = 'normal' }) {
     return 'opacity-100';
   };
 
-  // User icon opacity for minimal mode
   const getUserIconOpacity = () => {
     if (style === 'minimal' && !rightHovered) {
       return 'opacity-40';
@@ -47,13 +47,11 @@ export default function Navbar({ style = 'normal' }) {
 
   return (
     <nav className={`w-full h-12 flex items-center justify-between bg-white transition-all duration-300`}>
-      {/* Left side - Logo and navigation links */}
       <div
         className="flex items-center relative px-4 py-8 w-full"
         onMouseEnter={() => setLeftHovered(true)}
         onMouseLeave={() => setLeftHovered(false)}
       >
-        {/* Website Logo */}
         <div className={`flex items-center transition-opacity duration-300 ${getLogoOpacity()}`}>
           <div className="flex items-center justify-center w-6 h-6 bg-black rounded mr-2">
             <span className="text-white font-bold">S</span>
@@ -73,13 +71,11 @@ export default function Navbar({ style = 'normal' }) {
           </div>
       </div>
 
-      {/* Right side - User profile */}
       <div
         className="flex items-center relative px-4 py-8 w-full justify-end"
         onMouseEnter={() => setRightHovered(true)}
         onMouseLeave={() => setRightHovered(false)}
       >
-        {/* User Menu */}
         <div className={`${getNavlinksStyle(rightHovered)} flex space-x-6 items-center`}>
           {userMenuItems.map((item, index) => (
             <Link key={index} href={item.href}>
