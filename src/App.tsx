@@ -5,6 +5,7 @@ function App() {
   return (
     <>
       <Navbar style='normal' />
+      <Navbar style='minimal' />
     </>
   );
 }
