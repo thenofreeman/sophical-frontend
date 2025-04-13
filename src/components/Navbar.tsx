@@ -55,12 +55,14 @@ export default function Navbar({ style = 'normal' }) {
       >
         {/* Website Logo */}
         <div className={`flex items-center transition-opacity duration-300 ${getLogoOpacity()}`}>
-          <div className="flex items-center justify-center w-6 h-6 bg-black rounded">
+          <div className="flex items-center justify-center w-6 h-6 bg-black rounded mr-2">
             <span className="text-white font-bold">S</span>
           </div>
         </div>
           <div className={`${getNavlinksStyle(leftHovered)} flex space-x-6 items-center`}>
-            <a href='/' className="ml-2 font-semibold text-black">Sophical</a>
+            <a href='/'>
+              <span className='font-semibold'>Sophical</span>
+            </a>
             {navLinks.map((link, index) => (
               <Link key={index} href={link.href} >
                 <span className={'text-base'}>
@@ -84,12 +86,12 @@ export default function Navbar({ style = 'normal' }) {
               {item.name}
             </Link>
           ))}
-          <button className='flex items-center mr-2'>
+          <button className='flex items-center'>
             <span className="font-semibold text-black">freeman</span>
             <ChevronDown size={16} className="text-gray-700" />
           </button>
         </div>
-        <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300`}>
+        <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300 ml-2`}>
           <User size={20} className="text-gray-700" />
         </button>
       </div>
