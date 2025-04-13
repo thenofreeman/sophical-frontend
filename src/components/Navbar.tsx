@@ -37,29 +37,6 @@ export default function Navbar({ style = 'normal' }) {
     return 'opacity-100';
   };
 
-  // Get user menu container class
-  const getUserMenuClass = () => {
-    // Base classes that are always applied
-    let classes = "transition-all duration-500 py-1 z-10";
-
-    // Modify layout based on style
-    if (style === 'normal') {
-      classes += " absolute right-0 mt-2 w-48 bg-white rounded-md";
-      classes += rightHovered ? " block" : " hidden";
-    } else {
-      classes += " absolute top-full right-0 mt-1 bg-white rounded-md p-2 w-40 origin-top-right";
-
-      // Apply sliding animation based on hover state
-      if (rightHovered) {
-        classes += " opacity-100 translate-x-0";  // Visible and in final position
-      } else {
-        classes += " opacity-0 translate-x-8 pointer-events-none";  // Hidden and shifted right (sliding effect)
-      }
-    }
-
-    return classes;
-  };
-
   return (
     <nav className={`w-full h-12 flex items-center justify-between px-4 bg-white transition-all duration-300`}>
       {/* Left side - Logo and navigation links */}
@@ -120,32 +97,51 @@ export default function Navbar({ style = 'normal' }) {
 
       {/* Right side - User profile */}
       <div
-        className="relative"
+        className="flex items-center relative"
         onMouseEnter={() => setRightHovered(true)}
         onMouseLeave={() => setRightHovered(false)}
       >
+        {/* User Menu */}
+        {style === 'normal' && (
+          <div className="ml-6 flex space-x-6 items-center">
+            {userMenuItems.map((item, index) => (
+              <a
+                key={index}
+                href="#"
+                className="flex items-center text-gray-700 hover:text-black transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+            <button className='flex items-center mr-2'>
+              <span className="font-semibold text-black">freeman</span>
+              <ChevronDown size={16} className="text-gray-700" />
+            </button>
+          </div>
+        )}
+        {style !== 'normal' && (
+          <div className={`
+          transition-all duration-500 flex items-center space-x-6 pl-6
+          overflow-hidden whitespace-nowrap
+          ${rightHovered ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}
+        `}>
+            {userMenuItems.map((item, index) => (
+              <a
+                key={index}
+                href="#"
+                className="flex items-center text-gray-700 hover:text-black transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+            <button className='flex items-center mr-2'>
+              <span className="font-semibold text-black">freeman</span>
+              <ChevronDown size={16} className="text-gray-700" />
+            </button>
+          </div>)}
         <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300`}>
           <User size={20} className="text-gray-700" />
-          {(style === 'normal' || rightHovered) && (
-            <>
-              <span className="ml-2 text-gray-700">User</span>
-              <ChevronDown size={16} className="ml-1 text-gray-700" />
-            </>
-          )}
         </button>
-
-        {/* User Menu */}
-        <div className={getUserMenuClass()}>
-          {userMenuItems.map((item, index) => (
-            <a
-              key={index}
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded"
-            >
-              {item.name}
-            </a>
-          ))}
-        </div>
       </div>
     </nav>
   );
