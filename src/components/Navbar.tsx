@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { User, ChevronDown } from 'lucide-react';
+import Link from './Link';
 
 // Main Navbar component
 export default function Navbar({ style = 'normal' }) {
@@ -61,15 +62,11 @@ export default function Navbar({ style = 'normal' }) {
           <div className={`${getNavlinksStyle(leftHovered)} flex space-x-6 items-center`}>
             <a href='/' className="ml-2 font-semibold text-black">Sophical</a>
             {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                className="flex items-center text-gray-700 hover:text-black transition-colors"
-              >
+              <Link key={index} href={link.href} >
                 <span className={'text-base'}>
                   {link.name}
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
       </div>
@@ -83,13 +80,9 @@ export default function Navbar({ style = 'normal' }) {
         {/* User Menu */}
         <div className={`${getNavlinksStyle(rightHovered)} flex space-x-6 items-center`}>
           {userMenuItems.map((item, index) => (
-            <a
-              key={index}
-              href="#"
-              className="flex items-center text-gray-700 hover:text-black transition-colors"
-            >
+            <Link key={index} href={item.href}>
               {item.name}
-            </a>
+            </Link>
           ))}
           <button className='flex items-center mr-2'>
             <span className="font-semibold text-black">freeman</span>
