@@ -19,9 +19,7 @@ export default function Navbar({ style = 'normal' }: Navbar) {
   ];
 
   const userMenuItems = [
-    { name: 'Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Logout', href: '#' }
+    { name: 'My Learning', href: '#' }
   ];
 
   const getLogoOpacity = () => {
