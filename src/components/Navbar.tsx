@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, User, Home, BookOpen, Code, Beaker, ChevronDown } from 'lucide-react';
+import { User, ChevronDown } from 'lucide-react';
 
 // Main Navbar component
 export default function Navbar({ style = 'normal' }) {
@@ -8,17 +8,17 @@ export default function Navbar({ style = 'normal' }) {
 
   // Navigation links data
   const navLinks = [
-    { name: 'Home', icon: <Home size={18} /> },
-    { name: 'Learn', icon: <BookOpen size={18} /> },
-    { name: 'Develop', icon: <Code size={18} /> },
-    { name: 'Research', icon: <Beaker size={18} /> }
+    { name: 'Home', href: '#' },
+    { name: 'Learn', href: '#' },
+    { name: 'Develop', href: '#' },
+    { name: 'Research', href: '#' }
   ];
 
   // User menu items
   const userMenuItems = [
-    { name: 'Profile' },
-    { name: 'Settings' },
-    { name: 'Logout' }
+    { name: 'Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Logout', href: '#' }
   ];
 
   // Logo opacity for minimal mode
@@ -38,10 +38,10 @@ export default function Navbar({ style = 'normal' }) {
   };
 
   return (
-    <nav className={`w-full h-12 flex items-center justify-between px-4 bg-white transition-all duration-300`}>
+    <nav className={`w-full h-12 flex items-center justify-between bg-white transition-all duration-300`}>
       {/* Left side - Logo and navigation links */}
       <div
-        className="flex items-center relative"
+        className="flex items-center relative px-4 py-8 w-full"
         onMouseEnter={() => setLeftHovered(true)}
         onMouseLeave={() => setLeftHovered(false)}
       >
@@ -54,15 +54,14 @@ export default function Navbar({ style = 'normal' }) {
 
         {/* Navigation Links - Inline with logo */}
         {style === 'normal' && (
-          <div className="ml-6 flex space-x-6 items-center">
-            <span className="ml-2 font-semibold text-black">Sophical</span>
+          <div className="flex space-x-6 items-center">
+            <a href='/' className="ml-2 font-semibold text-black">Sophical</a>
             {navLinks.map((link, index) => (
               <a
                 key={index}
-                href="#"
+                href={link.href}
                 className="flex items-center text-gray-700 hover:text-black transition-colors"
               >
-                <span className="mr-2">{link.icon}</span>
                 <span className={'text-base'}>
                   {link.name}
                 </span>
@@ -82,10 +81,9 @@ export default function Navbar({ style = 'normal' }) {
             {navLinks.map((link, index) => (
               <a
                 key={index}
-                href="#"
+                href={link.href}
                 className="flex items-center text-gray-700 hover:text-black transition-colors"
               >
-                <span className="mr-2">{link.icon}</span>
                 <span className={'text-base'}>
                   {link.name}
                 </span>
@@ -97,7 +95,7 @@ export default function Navbar({ style = 'normal' }) {
 
       {/* Right side - User profile */}
       <div
-        className="flex items-center relative"
+        className="flex items-center relative px-4 py-8 w-full justify-end"
         onMouseEnter={() => setRightHovered(true)}
         onMouseLeave={() => setRightHovered(false)}
       >
