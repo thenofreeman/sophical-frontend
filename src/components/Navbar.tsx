@@ -37,6 +37,13 @@ export default function Navbar({ style = 'normal' }) {
     return 'opacity-100';
   };
 
+  const getNavlinksStyle = (hoveredState: boolean) => {
+    if (style !== 'normal') {
+      return `transition-all duration-500 overflow-hidden whitespace-nowrap ${hoveredState ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}`;
+    }
+    return "";
+  }
+
   return (
     <nav className={`w-full h-12 flex items-center justify-between bg-white transition-all duration-300`}>
       {/* Left side - Logo and navigation links */}
@@ -51,10 +58,7 @@ export default function Navbar({ style = 'normal' }) {
             <span className="text-white font-bold">S</span>
           </div>
         </div>
-
-        {/* Navigation Links - Inline with logo */}
-        {style === 'normal' && (
-          <div className="flex space-x-6 items-center">
+          <div className={`${getNavlinksStyle(leftHovered)} flex space-x-6 items-center`}>
             <a href='/' className="ml-2 font-semibold text-black">Sophical</a>
             {navLinks.map((link, index) => (
               <a
@@ -68,29 +72,6 @@ export default function Navbar({ style = 'normal' }) {
               </a>
             ))}
           </div>
-        )}
-
-        {/* Navigation Links - Sliding out for collapsed/minimal */}
-        {style !== 'normal' && (
-          <div className={`
-            transition-all duration-500 flex items-center space-x-6 pl-6
-            overflow-hidden whitespace-nowrap
-            ${leftHovered ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}
-          `}>
-            <span className="font-semibold text-black">Sophical</span>
-            {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                className="flex items-center text-gray-700 hover:text-black transition-colors"
-              >
-                <span className={'text-base'}>
-                  {link.name}
-                </span>
-              </a>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Right side - User profile */}
@@ -100,43 +81,21 @@ export default function Navbar({ style = 'normal' }) {
         onMouseLeave={() => setRightHovered(false)}
       >
         {/* User Menu */}
-        {style === 'normal' && (
-          <div className="ml-6 flex space-x-6 items-center">
-            {userMenuItems.map((item, index) => (
-              <a
-                key={index}
-                href="#"
-                className="flex items-center text-gray-700 hover:text-black transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-            <button className='flex items-center mr-2'>
-              <span className="font-semibold text-black">freeman</span>
-              <ChevronDown size={16} className="text-gray-700" />
-            </button>
-          </div>
-        )}
-        {style !== 'normal' && (
-          <div className={`
-          transition-all duration-500 flex items-center space-x-6 pl-6
-          overflow-hidden whitespace-nowrap
-          ${rightHovered ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}
-        `}>
-            {userMenuItems.map((item, index) => (
-              <a
-                key={index}
-                href="#"
-                className="flex items-center text-gray-700 hover:text-black transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-            <button className='flex items-center mr-2'>
-              <span className="font-semibold text-black">freeman</span>
-              <ChevronDown size={16} className="text-gray-700" />
-            </button>
-          </div>)}
+        <div className={`${getNavlinksStyle(rightHovered)} flex space-x-6 items-center`}>
+          {userMenuItems.map((item, index) => (
+            <a
+              key={index}
+              href="#"
+              className="flex items-center text-gray-700 hover:text-black transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
+          <button className='flex items-center mr-2'>
+            <span className="font-semibold text-black">freeman</span>
+            <ChevronDown size={16} className="text-gray-700" />
+          </button>
+        </div>
         <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300`}>
           <User size={20} className="text-gray-700" />
         </button>
