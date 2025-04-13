@@ -1,41 +1,9 @@
 import React from 'react';
-import { Github, Twitter, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import TextSection from '../components/cv/TextSection';
+import HeaderSection from '../components/cv/CVHeader';
+import TimelineSection from '../components/cv/TimelineSection';
+import { CVData } from '../types/cv';
 
-// TypeScript Interfaces
-interface SocialLink {
-  icon: string;
-  url: string;
-  label: string;
-}
-
-interface HeaderData {
-  name: string;
-  bio: string;
-  socialLinks: SocialLink[];
-}
-
-interface ItemWithTags {
-  period?: string;
-  category?: string;
-  title?: string;
-  description?: string;
-  tags: string[];
-  link?: {
-    url: string;
-    text: string;
-  };
-}
-
-interface CVData {
-  header: HeaderData;
-  overview: string;
-  experience: ItemWithTags[];
-  education: ItemWithTags[];
-  projects: ItemWithTags[];
-  skills: ItemWithTags[];
-}
-
-// CV Data structure
 const cvData: CVData = {
   header: {
     name: "John Doe",
@@ -98,67 +66,6 @@ const cvData: CVData = {
   ]
 };
 
-// Icon component to map string names to Lucide icons
-interface SocialIconProps {
-  name: string;
-  size?: number;
-}
-
-const SocialIcon: React.FC<SocialIconProps> = ({ name, size = 20 }) => {
-  switch (name) {
-    case 'github':
-      return <Github size={size} />;
-    case 'twitter':
-      return <Twitter size={size} />;
-    case 'linkedin':
-      return <Linkedin size={size} />;
-    case 'mail':
-      return <Mail size={size} />;
-    default:
-      return <ExternalLink size={size} />;
-  }
-};
-
-// CV Section component for rendering items with period, title, description, and tags
-interface CVSectionProps {
-  title: string;
-  items: ItemWithTags[];
-}
-
-const CVSection: React.FC<CVSectionProps> = ({ title, items }) => {
-  return (
-    <section className="mb-12">
-      <h2 className="text-xl font-semibold mb-6 text-left border-b border-gray-200 pb-1">{title}</h2>
-
-      {items.map((item, index) => (
-        <div className="mb-8 flex" key={index}>
-          <div className="w-1/5 pr-6 text-left text-gray-500 pt-1">
-            {item.period || item.category}
-          </div>
-          <div className="w-4/5">
-            {item.title && <h3 className="font-medium text-lg">{item.title}</h3>}
-            {item.description && <p className="text-gray-700 my-2">{item.description}</p>}
-            {item.link && (
-              <div className="flex items-center gap-2 mt-1 text-gray-800">
-                <ExternalLink size={16} />
-                <a href={item.link.url} className="underline hover:no-underline">{item.link.text}</a>
-              </div>
-            )}
-            {item.tags && (
-              <div className="flex flex-wrap gap-2 mt-3">
-                {item.tags.map((tag, i) => (
-                  <span key={i} className="bg-gray-100 px-2 py-1 text-sm rounded-md">{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-};
-
-// Main CV Component
 interface CVProps {
   data?: CVData;
 }
@@ -167,41 +74,12 @@ export default function CV({ data = cvData }: CVProps): React.ReactElement {
   return (
     <div className="min-h-screen bg-white text-black flex justify-center py-16 px-4">
       <div className="w-full max-w-3xl">
-        {/* Header Section */}
-        <header className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-2">{data.header.name}</h1>
-          <p className="text-lg mb-6 text-gray-700">{data.header.bio}</p>
-          <div className="flex justify-center space-x-4">
-            {data.header.socialLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                className="hover:opacity-70 transition-opacity"
-                aria-label={link.label}
-              >
-                <SocialIcon name={link.icon} />
-              </a>
-            ))}
-          </div>
-        </header>
-
-        {/* Overview Section */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4 text-left border-b border-gray-200 pb-1">Overview</h2>
-          <p className="text-gray-800">{data.overview}</p>
-        </section>
-
-        {/* Experience Section */}
-        <CVSection title="Experience" items={data.experience} />
-
-        {/* Education Section */}
-        <CVSection title="Education" items={data.education} />
-
-        {/* Projects Section */}
-        <CVSection title="Projects" items={data.projects} />
-
-        {/* Skills Section */}
-        <CVSection title="Skills" items={data.skills} />
+        <HeaderSection name={data.header.name} bio={data.header.bio} socialLinks={data.header.socialLinks} />
+        <TextSection content={data.overview} />
+        <TimelineSection title={"Experience"} items={data.experience} />
+        <TimelineSection title={"Education"} items={data.education} />
+        <TimelineSection title={"Projects"} items={data.projects} />
+        {/* <CVSection title="Skills" items={data.skills} /> */}
       </div>
     </div>
   );
