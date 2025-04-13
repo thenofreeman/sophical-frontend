@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 function App() {
   return (
     <>
-      <Navbar size='small' style='minimal' />
+      <Navbar style='minimal' />
     </>
   );
 }

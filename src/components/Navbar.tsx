@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, User, Home, BookOpen, Code, Beaker, ChevronDown } from 'lucide-react';
 
 // Main Navbar component
-export default function Navbar({ size = 'normal', style = 'normal' }) {
+export default function Navbar({ style = 'normal' }) {
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
 
@@ -21,50 +21,6 @@ export default function Navbar({ size = 'normal', style = 'normal' }) {
     { name: 'Logout' }
   ];
 
-  // Determine navbar height and styling based on size prop
-  const getNavHeight = () => {
-    return size === 'small' ? 'h-8' : 'h-12';
-  };
-
-  // Determine icon size based on navbar size
-  const getIconSize = () => {
-    return size === 'small' ? 16 : 20;
-  };
-
-  // Get navigation links container class
-  const getNavLinksClass = () => {
-    // Base classes that are always applied
-    let classes = "transition-all duration-500 flex z-10";
-
-    // Modify layout based on style
-    if (style === 'normal') {
-      classes += " ml-6 space-x-6 flex-row items-center";
-    } else {
-      classes += " absolute top-full left-0 mt-1 bg-white p-3 shadow-lg rounded-md flex-col space-y-3 origin-top-left";
-
-      // Apply sliding animation based on hover state
-      if (leftHovered) {
-        classes += " opacity-100 translate-x-0";  // Visible and in final position
-      } else {
-        classes += " opacity-0 -translate-x-8 pointer-events-none";  // Hidden and shifted left (sliding effect)
-      }
-    }
-
-    return classes;
-  };
-
-  // Determine styling for collapsed and minimal modes
-  const getNavbarStyle = () => {
-    if (style === 'normal') {
-      return 'bg-white';
-    } else if (style === 'collapsed') {
-      return 'bg-white';
-    } else if (style === 'minimal') {
-      return 'bg-white';
-    }
-    return 'bg-white shadow-md';
-  };
-
   // Logo opacity for minimal mode
   const getLogoOpacity = () => {
     if (style === 'minimal' && !leftHovered) {
@@ -73,57 +29,87 @@ export default function Navbar({ size = 'normal', style = 'normal' }) {
     return 'opacity-100';
   };
 
-  // Show the navigation links based on style
-  const showNavLinks = () => {
-    return style === 'normal' || (leftHovered && (style === 'collapsed' || style === 'minimal'));
+  // User icon opacity for minimal mode
+  const getUserIconOpacity = () => {
+    if (style === 'minimal' && !rightHovered) {
+      return 'opacity-40';
+    }
+    return 'opacity-100';
+  };
+
+  // Get user menu container class
+  const getUserMenuClass = () => {
+    // Base classes that are always applied
+    let classes = "transition-all duration-500 py-1 z-10";
+
+    // Modify layout based on style
+    if (style === 'normal') {
+      classes += " absolute right-0 mt-2 w-48 bg-white rounded-md";
+      classes += rightHovered ? " block" : " hidden";
+    } else {
+      classes += " absolute top-full right-0 mt-1 bg-white rounded-md p-2 w-40 origin-top-right";
+
+      // Apply sliding animation based on hover state
+      if (rightHovered) {
+        classes += " opacity-100 translate-x-0";  // Visible and in final position
+      } else {
+        classes += " opacity-0 translate-x-8 pointer-events-none";  // Hidden and shifted right (sliding effect)
+      }
+    }
+
+    return classes;
   };
 
   return (
-    <nav
-      className={`w-full ${getNavHeight()} flex items-center justify-between px-4 ${getNavbarStyle()} transition-all duration-300`}
-    >
+    <nav className={`w-full h-12 flex items-center justify-between px-4 bg-white transition-all duration-300`}>
       {/* Left side - Logo and navigation links */}
-      <div className="flex items-center"
-           onMouseEnter={() => setLeftHovered(true)}
-           onMouseLeave={() => setLeftHovered(false)}>
+      <div
+        className="flex items-center relative"
+        onMouseEnter={() => setLeftHovered(true)}
+        onMouseLeave={() => setLeftHovered(false)}
+      >
         {/* Website Logo */}
-        <div className={`mr-4 flex items-center transition-opacity duration-300 ${getLogoOpacity()}`}>
+        <div className={`flex items-center transition-opacity duration-300 ${getLogoOpacity()}`}>
           <div className="flex items-center justify-center w-6 h-6 bg-black rounded">
             <span className="text-white font-bold">S</span>
           </div>
-          {(style === 'normal' || leftHovered) && (
-            <span className="ml-2 font-semibold text-black">Sophical</span>
-          )}
         </div>
 
-        {/* Navigation Links - Single implementation with conditional classes */}
-        <div className={getNavLinksClass()}>
-          {navLinks.map((link, index) => (
-            <a
-              key={index}
-              href="#"
-              className="flex items-center text-gray-700 hover:text-black transition-colors whitespace-nowrap"
-            >
-              <span className="mr-2">{link.icon}</span>
-              <span className={size === 'small' ? 'text-sm' : 'text-base'}>
-                {link.name}
-              </span>
-            </a>
-          ))}
-        </div>
-        {/* {/* Navigation Links */}
-        {showNavLinks() && (
-          <div
-            className={`flex space-x-4 transition-all duration-300 ${leftHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-95 pointer-events-none' }`}
-          >
+        {/* Navigation Links - Inline with logo */}
+        {style === 'normal' && (
+          <div className="ml-6 flex space-x-6 items-center">
+            <span className="ml-2 font-semibold text-black">Sophical</span>
             {navLinks.map((link, index) => (
               <a
                 key={index}
                 href="#"
                 className="flex items-center text-gray-700 hover:text-black transition-colors"
               >
-                <span className="mr-1">{link.icon}</span>
-                <span className={size === 'small' ? 'text-sm' : 'text-base'}>
+                <span className="mr-2">{link.icon}</span>
+                <span className={'text-base'}>
+                  {link.name}
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Navigation Links - Sliding out for collapsed/minimal */}
+        {style !== 'normal' && (
+          <div className={`
+            transition-all duration-500 flex items-center space-x-6 pl-6
+            overflow-hidden whitespace-nowrap
+            ${leftHovered ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}
+          `}>
+            <span className="font-semibold text-black">Sophical</span>
+            {navLinks.map((link, index) => (
+              <a
+                key={index}
+                href="#"
+                className="flex items-center text-gray-700 hover:text-black transition-colors"
+              >
+                <span className="mr-2">{link.icon}</span>
+                <span className={'text-base'}>
                   {link.name}
                 </span>
               </a>
@@ -133,34 +119,32 @@ export default function Navbar({ size = 'normal', style = 'normal' }) {
       </div>
 
       {/* Right side - User profile */}
-      <div className="flex items-center"
+      <div
+        className="relative"
         onMouseEnter={() => setRightHovered(true)}
-        onMouseLeave={() => setRightHovered(false)}>
-        <div className="relative group">
-          <button className={`flex items-center ${getLogoOpacity()} transition-opacity duration-300`}>
-            <User size={getIconSize()} className="text-gray-700" />
-            {(style === 'normal' || rightHovered) && (
-              <>
-                <span className="ml-2 text-gray-700">User</span>
-                <ChevronDown size={16} className="ml-1 text-gray-700" />
-              </>
-            )}
-          </button>
+        onMouseLeave={() => setRightHovered(false)}
+      >
+        <button className={`flex items-center ${getUserIconOpacity()} transition-opacity duration-300`}>
+          <User size={20} className="text-gray-700" />
+          {(style === 'normal' || rightHovered) && (
+            <>
+              <span className="ml-2 text-gray-700">User</span>
+              <ChevronDown size={16} className="ml-1 text-gray-700" />
+            </>
+          )}
+        </button>
 
-          {/* Dropdown menu */}
-          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block">
-            <div className="py-1">
-              {userMenuItems.map((item, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
+        {/* User Menu */}
+        <div className={getUserMenuClass()}>
+          {userMenuItems.map((item, index) => (
+            <a
+              key={index}
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
