@@ -5,11 +5,12 @@ import ScheduleBuilder from "./pages/ScheduleBuilder";
 import GuidePage from './templates/GuidePage';
 import CourseOutlinePage from './templates/CourseOutline';
 import QuizPage from './templates/QuizPage';
+import SignupOnboarding from './pages/Signup';
 
 function App() {
   return (
     <MainLayout style='normal'>
-      <QuizPage />
+      <SignupOnboarding />
     </MainLayout>
     // <MainLayout style='normal'>
     //   <ScheduleBuilder />
