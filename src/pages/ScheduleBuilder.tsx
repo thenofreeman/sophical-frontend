@@ -30,8 +30,8 @@ const terms: Term[] = [
 ];
 
 const initialCourses: Course[] = [
-  { id: '1', code: 'CS 101', name: 'Introduction to Computer Science', credits: 3, professor: 'Dr. Smith', isExpanded: false },
-  { id: '2', code: 'MATH 240', name: 'Linear Algebra', credits: 4, professor: 'Dr. Johnson', isExpanded: false },
+  { id: '1', code: 'COMP 1010', name: 'Introduction to Computer Science', credits: 3, professor: 'Dr. Smith', isExpanded: false },
+  { id: '2', code: 'MATH 2418', name: 'Linear Algebra', credits: 4, professor: 'Dr. Johnson', isExpanded: false },
 ];
 
 const mockSchedules: Schedule[] = [
@@ -118,7 +118,7 @@ export default function ScheduleBuilder() {
                     <p className="font-medium">{course.code}: {course.name}</p>
                     <p className="text-sm text-gray-600">{course.credits} credits</p>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 ml-2">
                     <button
                       onClick={() => toggleCourseDetails(course.id)}
                       className="p-1 hover:bg-gray-100 rounded"
@@ -161,18 +161,65 @@ export default function ScheduleBuilder() {
         </div>
 
         {/* Right column - Empty for now */}
-        <div className="w-full md:w-1/2 p-6 bg-gray-50">
-          <div className="h-full flex items-center justify-center border-2 border-dashed border-gray-200 rounded p-6">
-            <p className="text-gray-400 text-center">
-              Course details and options will appear here when selecting a specific course.
-            </p>
+        <div className="w-full md:w-1/2 p-6 border-r border-transparent">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Registered Courses</h2>
+          </div>
+
+          <div className="space-y-3">
+            {courses.map(course => (
+              <div key={course.id} className="border border-gray-200 rounded">
+                <div className="flex justify-between items-center p-3">
+                  <div>
+                    <p className="font-medium">{course.code}: {course.name}</p>
+                    <p className="text-sm text-gray-600">{course.credits} credits</p>
+                  </div>
+                  <div className="flex space-x-2 ml-2">
+                    <button
+                      onClick={() => toggleCourseDetails(course.id)}
+                      className="p-1 hover:bg-gray-100 rounded"
+                      aria-label="Toggle details"
+                    >
+                      {course.isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                    </button>
+                    <button
+                      onClick={() => removeCourse(course.id)}
+                      className="p-1 hover:bg-gray-100 rounded"
+                      aria-label="Remove course"
+                    >
+                      <X size={18} />
+                    </button>
+                    <button
+                      className="p-1 hover:bg-gray-100 rounded"
+                      aria-label="Filter course details"
+                    >
+                      <Filter size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {course.isExpanded && (
+                  <div className="p-3 bg-gray-50 border-t border-gray-200">
+                    <p className="text-sm"><strong>Professor:</strong> {course.professor}</p>
+                    <p className="text-sm mt-1"><strong>Prerequisites:</strong> None</p>
+                    <p className="text-sm mt-1"><strong>Available Sections:</strong> 3</p>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {courses.length === 0 && (
+              <div className="p-4 text-center text-gray-500 border border-dashed border-gray-300 rounded">
+                No courses selected. Click "+" to get started.
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Bottom section - Possible Schedules */}
       <div className="w-full p-6 bg-white border-t border-gray-200">
-        <h2 className="text-xl font-semibold mb-4">Possible Schedules</h2>
+        <h2 className="text-xl font-semibold mb-4">Schedules</h2>
 
         {selectedSchedule ? (
           <div className="border border-gray-200 rounded p-4">
